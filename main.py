@@ -9,10 +9,19 @@ chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-shm-usage')
 
 driver = webdriver.Chrome(options=chrome_options)
+driver.get("http://www.gimkit.com/hub")
 
-driver.get("http://www.youtube.com")
-elem = driver.find_element_by_class_name("search_query")
-elem.send_keys("pycon")
-elem.send_keys(Keys.RETURN)
+sleep(1)
+
+usernameinput = driver.find_element(by=By.CLASS_NAME, value="ant-input.ant-input-lg")
+usernameinput.send_keys("mablis25@lsrhs.net")
+usernameinput.send_keys(Keys.RETURN)
+
+sleep(1)
+
+passwordinput = driver.find_element(by=By.CLASS_NAME, value="ant-input.ant-input-lg")
+passwordinput.send_keys("alphabeta")
+passwordinput.send_keys(Keys.RETURN)
+
 sleep(100)
 driver.close()
