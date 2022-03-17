@@ -26,5 +26,10 @@ passwordinput = driver.find_element(by=By.CLASS_NAME, value="ant-input.ant-input
 passwordinput.send_keys(password)
 passwordinput.send_keys(Keys.RETURN)
 
+sleep(1)
+
+joincode = driver.find_element(by=By.CLASS_NAME, value="sc-jGFFOr.cKOjwg.flex.vc.hc")
+joincode.click()
+
 sleep(100)
 driver.close()
