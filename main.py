@@ -27,13 +27,20 @@ passwordinput.send_keys(Keys.RETURN)
 
 sleep(1)
 
-try:
-  joincode = driver.find_element(by=By.CLASS_NAME, value="sc-jGFFOr.cKOjwg.flex.vc.hc")
-  joincode.click()
-except:
-  quit()
-
 while True:
-  pass
+  try:
+    joincode = driver.find_element(by=By.CLASS_NAME, value="sc-jGFFOr.cKOjwg.flex.vc.hc")
+    joincode.click()
+  except:
+    pass
+  else:
+    break
+
+humancontrol = True
+while True:
+  if humancontrol:
+    pass
+  else:
+    pass
 
 driver.close()
