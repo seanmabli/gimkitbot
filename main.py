@@ -28,6 +28,8 @@ passwordinput.send_keys(Keys.RETURN)
 
 sleep(1)
 
+questionanswersleeptime = 0.4
+
 while True:
   try:
     joincode = driver.find_element(by=By.CLASS_NAME, value="sc-jGFFOr.cKOjwg.flex.vc.hc").click()
@@ -45,21 +47,33 @@ while True:
     humancontrol = False
 
   if humancontrol:
-    print('human')
+    pass
   else:
-    # print('bot')
-    question = driver.find_element(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM").text
-    possibleanswers = [driver.find_elements(by=By.CLASS_NAME, value="sc-iDsUSg.cVPfqH"), driver.find_elements(by=By.CLASS_NAME, value="sc-iDsUSg.esDDTm"), driver.find_elements(by=By.CLASS_NAME, value="sc-iDsUSg.lgneBT"), driver.find_elements(by=By.CLASS_NAME, value="sc-iDsUSg.cpbUXN")]
-    # if question in answers.keys():
-    #   for i in range(4):
-    #     if answers[question] == possibleanswers[i].get_attribute('id'):
-    #       possibleanswers[i].click()
-    # else:
-    #   driver.find_elements(by=By.CLASS_NAME, value="sc-iDsUSg.cVPfqH").click()
-    #   sleep(100)
-    #   quit()
+    questioninfo = driver.find_elements(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM")
+    question = questioninfo[0].text
+    firstanswer = questioninfo[1].text
+    if question in answers.keys():
+      for i in range(4):
+        if answers[question] == questioninfo[i + 1].text:
+          questioninfo[i + 1].click()
+      sleep(questionanswersleeptime)
+      answerinfo = driver.find_elements(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM")
+      answerinfo[2].click()
+    else:
+      questioninfo[1].click()
+      sleep(questionanswersleeptime)
+      answerinfo = driver.find_elements(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM")
 
-    # sleep(1)
-    # driver.find_element(by=By.CLASS_NAME, value="anticon.anticon-close").click()
+      if answerinfo[0].text == '+1 Bait':
+        answers[question] = firstanswer
+        answerinfo[2].click()
+      else:
+        answerinfo[1].click()
+        sleep(questionanswersleeptime)
+        correctanswerinfo = driver.find_elements(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM")
+        answers[question] = correctanswerinfo[2].text
+        correctanswerinfo[3].click()
+
+    sleep(questionanswersleeptime)
 
 driver.close()
