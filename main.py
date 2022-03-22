@@ -28,7 +28,7 @@ passwordinput.send_keys(Keys.RETURN)
 
 sleep(1)
 
-questionanswersleeptime = 0.4
+bait = 0
 
 while True:
   try:
@@ -56,24 +56,32 @@ while True:
       for i in range(4):
         if answers[question] == questioninfo[i + 1].text:
           questioninfo[i + 1].click()
-      sleep(questionanswersleeptime)
+      sleep(0.4)
       answerinfo = driver.find_elements(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM")
       answerinfo[2].click()
+      bait += 1
     else:
       questioninfo[1].click()
-      sleep(questionanswersleeptime)
+      sleep(0.4)
       answerinfo = driver.find_elements(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM")
 
       if answerinfo[0].text == '+1 Bait':
         answers[question] = firstanswer
         answerinfo[2].click()
+        bait += 1
       else:
         answerinfo[1].click()
-        sleep(questionanswersleeptime)
+        sleep(0.4)
         correctanswerinfo = driver.find_elements(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM")
         answers[question] = correctanswerinfo[2].text
         correctanswerinfo[3].click()
+        bait -= 1
 
-    sleep(questionanswersleeptime)
+    bait = 0 if bait < 0 else bait
+    sleep(0.2)
+
+    if bait > 10:
+      driver.find_element(by=By.CLASS_NAME, value="anticon.anticon-close").click()
+      sleep(0.4)
 
 driver.close()
