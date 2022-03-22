@@ -80,7 +80,7 @@ while True:
     bait = 0 if bait < 0 else bait
     sleep(0.2)
 
-    if bait > 10:
+    if bait >= 10:
       driver.find_element(by=By.CLASS_NAME, value="anticon.anticon-close").click()
       sleep(0.4)
 
