@@ -7,8 +7,8 @@ from time import sleep
 
 answers = {}
 
-username = "mablis25@lsrhs.net" # input('enter username: ')
-password = "alphabeta" # input('enter password: ')
+username = input('enter username: ')
+password = input('enter password: ')
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 driver.maximize_window()
@@ -80,7 +80,7 @@ while True:
     bait = 0 if bait < 0 else bait
     sleep(0.2)
 
-    if bait >= 10:
+    if bait >= 100:
       driver.find_element(by=By.CLASS_NAME, value="anticon.anticon-close").click()
       sleep(0.4)
 
