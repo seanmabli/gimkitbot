@@ -14,19 +14,17 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 driver.maximize_window()
 driver.get("http://www.gimkit.com/hub")
 
-sleep(1)
-
-usernameinput = driver.find_element(by=By.CLASS_NAME, value="ant-input.ant-input-lg")
+usernameinput = []
+while usernameinput == []:
+  usernameinput = driver.find_element(by=By.CLASS_NAME, value="ant-input.ant-input-lg")
 usernameinput.send_keys(username)
 usernameinput.send_keys(Keys.RETURN)
 
-sleep(1)
-
-passwordinput = driver.find_element(by=By.CLASS_NAME, value="ant-input.ant-input-lg")
+passwordinput = []
+while passwordinput = []:
+  passwordinput = driver.find_element(by=By.CLASS_NAME, value="ant-input.ant-input-lg")
 passwordinput.send_keys(password)
 passwordinput.send_keys(Keys.RETURN)
-
-sleep(1)
 
 bait = 0
 
@@ -56,14 +54,19 @@ while True:
       for i in range(4):
         if answers[question] == questioninfo[i + 1].text:
           questioninfo[i + 1].click()
-      sleep(0.4)
-      answerinfo = driver.find_elements(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM")
+      
+      answerinfo = []
+      while answerinfo == []:
+        answerinfo = driver.find_elements(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM")
       answerinfo[2].click()
       bait += 1
     else:
       questioninfo[1].click()
-      sleep(0.4)
-      answerinfo = driver.find_elements(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM")
+      
+
+      answerinfo = []
+      while answerinfo == []:
+        answerinfo = driver.find_elements(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM")
 
       if answerinfo[0].text == '+1 Bait':
         answers[question] = firstanswer
@@ -71,17 +74,23 @@ while True:
         bait += 1
       else:
         answerinfo[1].click()
-        sleep(0.4)
-        correctanswerinfo = driver.find_elements(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM")
+        correctanswerinfo = []
+        while correctanswerinfo == []:
+          correctanswerinfo = driver.find_elements(by=By.CLASS_NAME, value="sc-gHpXsY.criBYM")
         answers[question] = correctanswerinfo[2].text
         correctanswerinfo[3].click()
         bait -= 1
 
     bait = 0 if bait < 0 else bait
-    sleep(0.2)
 
     if bait >= 100:
-      driver.find_element(by=By.CLASS_NAME, value="anticon.anticon-close").click()
+      while True:
+        try:
+          driver.find_element(by=By.CLASS_NAME, value="anticon.anticon-close").click()
+        except:
+          pass
+        else:
+          break
       sleep(0.4)
 
 driver.close()
